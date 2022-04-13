@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+import { useState } from "react";
+import DialogBox from "./DialogBox";
+import AppBody from "./AppBody";
 import './App.css';
 
 function App() {
+  const [showDialog, setShowDialog] = useState(false);
+
+  const openDialog = () => {
+    setShowDialog(true);
+  }
+
+  const closeDialog = () => {
+    setShowDialog(false);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <section className="App">
+      <AppBody openDialog={openDialog} hideContent={showDialog} />
+      <DialogBox closeDialog={closeDialog} isOpen={showDialog}>
+        <form method="dialog">
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Hi there ;)
+          <br />
+          You clicked the dialog button
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <input type='text' aria-label="first" name="firstInput" />
+        <input type='text' aria-label="second" name="secondInput" />
+        <button onClick={closeDialog}>GoodBye</button>
+        </form>
+      </DialogBox>
+    </section>
   );
 }
 
